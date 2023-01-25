@@ -13,6 +13,7 @@ class IngredientsAdmin(admin.ModelAdmin):
         'measurement_unit',
     )
     list_filter = ('name',)
+    search_fields = ('name',)
     empty_value_display = settings.ADMIN_MODEL_EMPTY_VALUE
 
 
@@ -34,6 +35,7 @@ class TagAdmin(admin.ModelAdmin):
 class RecipeTagInline(admin.TabularInline):
     model = TagsInRecipe
     extra = 1
+
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):

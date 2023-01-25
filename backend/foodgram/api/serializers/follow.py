@@ -46,13 +46,13 @@ class FollowRecipeSerializers(serializers.ModelSerializer):
 class FollowListSerializer(serializers.ModelSerializer):
     """ Сериализатор подписки и отписки на пользователя"""
     is_subscribed = serializers.SerializerMethodField()
-    recipes = FollowRecipeSerializers(many=True)
+    recipes = serializers.SerializerMethodField()
     recipes_count = serializers.IntegerField(
-        source='author.recipes.count', read_only=True
+        source='recipe_author.count', read_only=True
     )
 
     class Meta:
-        model = Follow
+        model = User
         fields = (
             'email',
             'id',
@@ -63,14 +63,24 @@ class FollowListSerializer(serializers.ModelSerializer):
             'is_subscribed',
             'recipes_count',
         )
+        read_only_fields = (
+            'email',
+            'username',
+            'first_name',
+            'last_name',
+        )
 
     def get_is_subscribed(self, instance):
         user = self.context.get('request').user
-        if Follow.objects.filter(user=user, author=instance.author):
-            return True
-        return False
-
+        if user.is_anonymous or instance.username == user:
+            return False
+        return instance.follower.filter(user=instance, following=user).exists()
 
     def get_recipes(self, instance):
-        recipes = instance.author.recipe.all()
-        return FollowRecipeSerializers(recipes, many=True).data
+        recipes = instance.recipe_author.all()
+        context = {'request': self.context.get('request')}
+        return FollowRecipeSerializers(
+            recipes,
+            context=context,
+            many=True
+        ).data

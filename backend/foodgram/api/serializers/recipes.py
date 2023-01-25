@@ -4,7 +4,6 @@ from rest_framework import serializers
 from recipes.models import (Favorite, IngredientInRecipe, Recipe, ShoppingCart,
                             Tag)
 from users.serializers import UserListSerializer
-
 from .ingredients import (IngredientInRecipeListSerializer,
                           IngredientInRecipeSerializer)
 from .tags import TagSerializer
@@ -101,7 +100,6 @@ class RecipeCreateSerializer(BaseRecipeSerializer):
             tags = validated_data.pop('tags')
         recipe = Recipe.objects.create(author=author, **validated_data)
         recipe.tags.set(tags)
-        print(recipe)
         self.create_ingredients(ingredients, recipe)
         return recipe
 
@@ -119,12 +117,12 @@ class RecipeCreateSerializer(BaseRecipeSerializer):
 
     def validate(self, data):
         ingredients = data.get('ingredients')
-        if ingredients == []:
+        if not ingredients:
             raise serializers.ValidationError(
                 'Необходимо выбрать хотя бы один ингредиент')
         if [item for item in ingredients if item['amount'] < 1]:
             raise serializers.ValidationError(
-                'Минимальное количество ингридиента 1')
+                'Минимальное количество ингредиента 1')
         for ingredient in ingredients:
             if ingredients.count(ingredient) > 1:
                 raise serializers.ValidationError(

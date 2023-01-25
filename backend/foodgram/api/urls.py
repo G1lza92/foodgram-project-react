@@ -18,7 +18,11 @@ urlpatterns = [
         FollowListAPIView.as_view(),
         name='subscriptions'
     ),
-    path('users/<id>/subscribe/', FollowAPIView.as_view(), name='subscribe'),
+    path(
+        'users/<int:id>/subscribe/',
+        FollowAPIView.as_view(),
+        name='subscribe'
+    ),
     path(
         "recipes/<int:id>/favorite/",
         FavoriteAPIView.as_view(),

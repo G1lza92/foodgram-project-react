@@ -35,3 +35,4 @@ class TagViewSetTestCase(APITestCase):
         self.assertEqual(response.data['name'], 'Test tag')
         self.assertEqual(response.data['color'], '#FFFFFF')
         self.assertEqual(response.data['slug'], 'test-slug')
+        self.assertNotEqual(response.data['id'], self.model2.id)

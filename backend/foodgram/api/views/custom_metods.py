@@ -17,8 +17,7 @@ def custom_post(self, request, id, serializer):
 def custom_delete(self, request, id, model):
     user = request.user
     recipe = get_object_or_404(Recipe, id=id)
-    model.objects.all().filter(user=user, recipe=recipe)
-    if not model.objects.all().filter(user=user, recipe=recipe).exists():
+    if not model.objects.filter(user=user, recipe=recipe).exists():
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    model.objects.all().filter(user=user, recipe=recipe).delete()
+    model.objects.filter(user=user, recipe=recipe).delete()
     return Response(status=status.HTTP_204_NO_CONTENT)

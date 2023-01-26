@@ -20,7 +20,6 @@ class FollowAPIView(views.APIView):
     def delete(self, request, id):
         user = request.user
         following = get_object_or_404(User, id=id)
-        Follow.objects.filter(user=user, following=following)
         if not Follow.objects.filter(user=user, following=following).exists():
             return Response(status=status.HTTP_400_BAD_REQUEST)
         Follow.objects.filter(user=user, following=following).delete()
@@ -34,5 +33,5 @@ class FollowListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        new_queryset = User.objects.all().filter(following__user=user)
+        new_queryset = User.objects.filter(following__user=user)
         return new_queryset

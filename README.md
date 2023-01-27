@@ -7,7 +7,7 @@
 ### После клонирования репрозитория:
 * В директории infra создайте файл .env с переменными окружения для работы с базой данных (Образец файла .env.sample)
 >
-* Для запуска проекта выполните из директории с проектом команду
+* Для запуска проекта выполните из директории infra команду
 >
 ```sudo docker-compose up -d```
 >
@@ -49,11 +49,3 @@ password: zxcv0987
 * [Gunicorn](https://github.com/benoitc/gunicorn)
 * [Docker 20.10.21, build baeda1f](https://github.com/docker)
 * [Docker-compose 3.8](https://github.com/docker)
-
-## Групповой проекта выполенен командой №21 коготры №41 курса "Backend developer"
-* [Артем  Зимин](https://github.com/G1lza92)
-* [Сергей Гриценко (team lead)](https://github.com/GritsenkoSerge/)
-* [Марк Британов](https://github.com/M4rk-er)
-### под руководством
-* Олег Портнихин (наставник)
-* Андрей Квичанский (ревьюер)

@@ -15,12 +15,8 @@ services:
       start_period: 80s
 
   backend:
-    build:
-      context: ../backend/foodgram
-      dockerfile: Dockerfile
+    image: g1lza/foodgram_back:v1
     restart: always
-#    ports:
-#      - "8000:8000"
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
@@ -30,9 +26,7 @@ services:
       - ../.env
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: g1lza/foodgram_front:v1
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
@@ -40,6 +34,7 @@ services:
 
   nginx:
     image: nginx:1.19.3
+    restart: always
     ports:
       - "80:80"
     volumes:

@@ -1,6 +1,9 @@
 [![Django-app workflow](https://github.com/G1lza92/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/G1lza92/foodgram-project-react/actions/workflows/foodgram_workflow.yml)
 
 # «Foodgram»
+
+http://84.201.152.224/recipes
+
 ## Описание:
 Приложение, в котором пользователи могут публиковать свои и добавлять чужие рецепты в избранное и в список покупок, подписываться на публикации других авторов. Сервис «cписок покупок» позволяет создать список из ингредиентов которые нужно купить для приготовления выбранных блюд. Есть возможность сохранить файл (.txt) с перечнем и количеством необходимых ингредиентов для рецептов.
 ## Установка:

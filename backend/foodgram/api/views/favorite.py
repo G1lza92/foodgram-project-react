@@ -2,6 +2,7 @@ from rest_framework import views
 
 from api.serializers import FavoriteSerializer
 from recipes.models import Favorite
+
 from .custom_metods import custom_delete, custom_post
 
 

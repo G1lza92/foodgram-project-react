@@ -87,9 +87,9 @@ class RecipeCreateSerializer(BaseRecipeSerializer):
         """ Функция создания пользователем ингредиента в рецепте """
         for ingredient in ingredients:
             IngredientInRecipe.objects.update_or_create(
-                    recipe=recipe,
-                    ingredient=ingredient['ingredient'],
-                    amount=ingredient['amount'],
+                recipe=recipe,
+                ingredient=ingredient['ingredient'],
+                amount=ingredient['amount'],
             )
 
     def create(self, validated_data):

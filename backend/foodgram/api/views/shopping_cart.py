@@ -42,4 +42,3 @@ class ShoppingCartGetAPIView(views.APIView):
         filename = f'{user.username}_shopping_list.csv'
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         return response
-

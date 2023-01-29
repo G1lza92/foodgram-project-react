@@ -15,7 +15,7 @@ services:
       start_period: 80s
 
   backend:
-    image: g1lza/foodgram_back:v1
+    image: g1lza/foodgram_back:v2
     restart: always
     volumes:
       - static_value:/app/static/

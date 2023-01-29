@@ -1,7 +1,7 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 
-from users.models import User
+from users.models import Follow, User
 
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -37,4 +37,4 @@ class UserListSerializer(UserSerializer):
         user = self.context.get('request').user
         if user.is_anonymous or obj.username == user:
             return False
-        return obj.follower.filter(user=obj, following=user).exists()
+        return Follow.objects.filter(user=user, following=obj).exists()

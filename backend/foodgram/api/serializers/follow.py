@@ -47,9 +47,7 @@ class FollowListSerializer(serializers.ModelSerializer):
     """ Сериализатор подписки и отписки на пользователя"""
     is_subscribed = serializers.SerializerMethodField()
     recipes = serializers.SerializerMethodField()
-    recipes_count = serializers.IntegerField(
-        source='recipe_author.count', read_only=True
-    )
+    recipes_count = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -77,10 +75,18 @@ class FollowListSerializer(serializers.ModelSerializer):
         return instance.follower.filter(user=instance, following=user).exists()
 
     def get_recipes(self, instance):
-        recipes = instance.recipe_author.all()
+        request = self.context.get('request')
+        limit = request.query_params.get('recipes_limit')
+        recipes = Recipe.objects.filter(author=instance)
+        if limit:
+            limit = int(limit)
+            recipes = recipes[:limit]
         context = {'request': self.context.get('request')}
         return FollowRecipeSerializers(
             recipes,
             context=context,
             many=True
         ).data
+
+    def get_recipes_count(self, instance):
+        return Recipe.objects.filter(author=instance).count()
